@@ -34,6 +34,12 @@ app.get('/biodata', (req, res) => {
     });
 });
 
+// POST: tambah data biodata
+app.post('/biodata', (req, res) => {
+    const { nama, alamat, agama } = req.body;
+    if(!nama || !alamat || !agama){
+        return res.status(400).json({ error: 'Nama, Alamat, dan Agama wajib diisi' });
+    }
 
 
 // Root route
