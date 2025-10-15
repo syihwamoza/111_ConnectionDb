@@ -40,7 +40,12 @@ app.post('/biodata', (req, res) => {
     if(!nama || !alamat || !agama){
         return res.status(400).json({ error: 'Nama, Alamat, dan Agama wajib diisi' });
     }
-
+    const query = 'INSERT INTO biodata (nama, alamat, agama) VALUES (?, ?, ?)';
+    db.query(query, [nama, alamat, agama], (err, result) => {
+        if(err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ message: 'Data berhasil ditambahkan', id: result.insertId });
+    });
+});
 
 // Root route
 app.get('/', (req, res) => {
