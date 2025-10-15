@@ -1,0 +1,40 @@
+const express = require('express');
+let mysql = require('mysql2');
+const PORT = process.env.PORT || 3000;
+const app = express();
+
+// Middleware untuk parsing JSON
+app.use(express.json());
+
+// Koneksi ke database
+const db = mysql.createConnection({
+    host: '127.0.0.1',
+    user: 'root',
+    port: '3306',
+    password: 'Binoza2610',
+    database: 'mahasiswa'
+});
+
+db.connect((err) => {
+    if(err){
+        console.log('Error connecting to MySQL: ' + err.stack);
+        return;
+    }
+    console.log('Connected to MySQL successfully');
+});
+
+// GET method: ambil semua data biodata
+app.get('/biodata', (req, res) => {
+    const query = 'SELECT * FROM biodata';
+    db.query(query, (err, results) => {
+        
+
+
+// Root route
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port http://localhost:${PORT}`);
+});
